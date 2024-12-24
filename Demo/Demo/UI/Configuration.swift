@@ -32,7 +32,7 @@ import TunnelKitWireGuard
 let appGroup = "DTDYD63ZX9.group.com.algoritmico.TunnelKit.Demo"
 private let bundleComponent = "macos"
 #elseif os(iOS)
-let appGroup = "group.com.multiqos.TunnelKit.Demo" //"group.com.algoritmico.TunnelKit.Demo"
+let appGroup = "group.com.algoritmico.TunnelKit.Demo"
 private let bundleComponent = "ios"
 #else
 let appGroup = "group.com.algoritmico.TunnelKit.Demo"
@@ -40,9 +40,9 @@ private let bundleComponent = "tvos"
 #endif
 
 enum TunnelIdentifier {
-    static let openVPN = "com.multiqos.\(bundleComponent).TunnelKit.Demo.OpenVPN-Tunnel"
+    static let openVPN = "com.algoritmico.\(bundleComponent).TunnelKit.Demo.OpenVPN-Tunnel"
 
-    static let wireGuard = "com.multiqos.\(bundleComponent).TunnelKit.Demo.WireGuard-Tunnel"
+    static let wireGuard = "com.algoritmico.\(bundleComponent).TunnelKit.Demo.WireGuard-Tunnel"
 }
 
 extension OpenVPN {
@@ -153,8 +153,6 @@ extension WireGuard {
         let serverAddress: String
 
         let serverPort: String
-        
-        let preSharedKey: String
     }
 
     struct DemoConfiguration {
@@ -169,7 +167,7 @@ extension WireGuard {
             builder.addresses = [params.clientAddress]
             builder.dnsServers = ["1.1.1.1", "1.0.0.1"]
             do {
-                try builder.addPeer(params.serverPublicKey, based64PreSharedKey: params.preSharedKey, endpoint: "\(params.serverAddress):\(params.serverPort)")
+                try builder.addPeer(params.serverPublicKey, endpoint: "\(params.serverAddress):\(params.serverPort)")
             } catch {
                 print(">>> \(error)")
                 return nil

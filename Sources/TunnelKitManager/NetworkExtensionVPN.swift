@@ -249,7 +249,6 @@ public class NetworkExtensionVPN: VPN {
         }
         log.debug("VPN status did change (\(bundleId)): isEnabled=\(connection.manager.isEnabled), status=\(connection.status.rawValue)")
         var notification = Notification(name: VPNNotification.didChangeStatus)
-        
         notification.vpnBundleIdentifier = bundleId
         notification.vpnIsEnabled = connection.manager.isEnabled
         notification.vpnStatus = connection.status.wrappedStatus

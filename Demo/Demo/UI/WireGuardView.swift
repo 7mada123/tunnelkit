@@ -32,17 +32,15 @@ struct WireGuardView: View {
 
     let vpnStatus: VPNStatus
 
-    @State private var clientPrivateKey = "yH+oJ710KOTJzVcK8ms4vCjJqzI8hsC4M5e9+47vSF4="
-    
-    @State private var presharedKey = "of7seczAv4SdKjjyEQ1SSE3SAIh3wZlWR56yf39ie8Q="
+    @State private var clientPrivateKey = ""
 
-    @State private var clientAddress = "172.31.0.24/32"
+    @State private var clientAddress = "192.168.30.2/32"
 
-    @State private var serverPublicKey = "aL5fOQWbgT4FHR9RVGdy9DOEvI+MOuheSt1e1ejIBGM="
+    @State private var serverPublicKey = ""
 
-    @State private var serverAddress = "18.130.30.10"
+    @State private var serverAddress = ""
 
-    @State private var serverPort = "63974"
+    @State private var serverPort = ""
 
     var body: some View {
         List {
@@ -85,8 +83,7 @@ private extension WireGuardView {
             clientAddress: clientAddress,
             serverPublicKey: serverPublicKey,
             serverAddress: serverAddress,
-            serverPort: serverPort,
-            preSharedKey: presharedKey
+            serverPort: serverPort
         )) else {
             print("Configuration incomplete")
             return

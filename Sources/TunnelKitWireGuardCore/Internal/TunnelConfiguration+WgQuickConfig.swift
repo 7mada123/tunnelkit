@@ -99,7 +99,6 @@ extension TunnelConfiguration {
                     interfaceConfiguration = interface
                 } else if parserState == .inPeerSection {
                     let peer = try TunnelConfiguration.collate(peerAttributes: attributes)
-                    print("peer.preSharedKey: \(peer.preSharedKey)")
                     peerConfigurations.append(peer)
                 }
             }

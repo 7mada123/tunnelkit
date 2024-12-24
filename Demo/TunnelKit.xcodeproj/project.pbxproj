@@ -740,6 +740,7 @@
 				TargetAttributes = {
 					0E05416825A232FD00EFC5FF = {
 						CreatedOnToolsVersion = 12.3;
+						ProvisioningStyle = Automatic;
 					};
 					0E05419E25A2343500EFC5FF = {
 						CreatedOnToolsVersion = 12.3;
@@ -1074,19 +1075,16 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CODE_SIGN_ENTITLEMENTS = Demo/iOS/Demo.entitlements;
-				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = FL7T8233P6;
-				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				DEVELOPMENT_TEAM = DTDYD63ZX9;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = com.multiqos.ios.TunnelKit.Demo;
+				PRODUCT_BUNDLE_IDENTIFIER = com.algoritmico.ios.TunnelKit.Demo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -1098,18 +1096,15 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CODE_SIGN_ENTITLEMENTS = Demo/iOS/Demo.entitlements;
-				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = FL7T8233P6;
-				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				DEVELOPMENT_TEAM = DTDYD63ZX9;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				MTL_FAST_MATH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = com.multiqos.ios.TunnelKit.Demo;
+				PRODUCT_BUNDLE_IDENTIFIER = com.algoritmico.ios.TunnelKit.Demo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
@@ -1120,10 +1115,9 @@
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CODE_SIGN_ENTITLEMENTS = Demo/iOS/DemoTunnel.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = FL7T8233P6;
+				DEVELOPMENT_TEAM = DTDYD63ZX9;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Demo/DemoTunnel.plist;
-				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1131,7 +1125,7 @@
 				);
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.multiqos.ios.TunnelKit.Demo.OpenVPN-Tunnel";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.algoritmico.ios.TunnelKit.Demo.OpenVPN-Tunnel";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -1144,17 +1138,16 @@
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CODE_SIGN_ENTITLEMENTS = Demo/iOS/DemoTunnel.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = FL7T8233P6;
+				DEVELOPMENT_TEAM = DTDYD63ZX9;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Demo/DemoTunnel.plist;
-				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
 				MTL_FAST_MATH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.multiqos.ios.TunnelKit.Demo.OpenVPN-Tunnel";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.algoritmico.ios.TunnelKit.Demo.OpenVPN-Tunnel";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -1429,10 +1422,9 @@
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CODE_SIGN_ENTITLEMENTS = Demo/iOS/DemoTunnel.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = FL7T8233P6;
+				DEVELOPMENT_TEAM = DTDYD63ZX9;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Demo/DemoTunnel.plist;
-				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1440,7 +1432,7 @@
 				);
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.multiqos.ios.TunnelKit.Demo.WireGuard-Tunnel";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.algoritmico.ios.TunnelKit.Demo.WireGuard-Tunnel";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -1458,17 +1450,16 @@
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CODE_SIGN_ENTITLEMENTS = Demo/iOS/DemoTunnel.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = FL7T8233P6;
+				DEVELOPMENT_TEAM = DTDYD63ZX9;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Demo/DemoTunnel.plist;
-				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
 				MTL_FAST_MATH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.multiqos.ios.TunnelKit.Demo.WireGuard-Tunnel";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.algoritmico.ios.TunnelKit.Demo.WireGuard-Tunnel";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
