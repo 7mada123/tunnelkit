@@ -230,7 +230,9 @@ public class NetworkExtensionVPN: VPN {
     private func notifyReinstall(_ manager: NETunnelProviderManager) {
         let bundleId = tunnelBundleIdentifier(manager)
                 
-        if(bundleId == nil) return
+        if(bundleId == nil) {
+           return
+        }
                 
         log.debug("VPN did reinstall (\(bundleId)): isEnabled=\(manager.isEnabled)")
 
@@ -248,7 +250,9 @@ public class NetworkExtensionVPN: VPN {
         
         let bundleId = tunnelBundleIdentifier(connection.manager)
         
-        if(bundleId == nil) return
+        if(bundleId == nil) {
+           return
+        }
         
         log.debug("VPN status did change (\(bundleId)): isEnabled=\(connection.manager.isEnabled), status=\(connection.status.rawValue)")
         var notification = Notification(name: VPNNotification.didChangeStatus)
