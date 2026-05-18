@@ -146,7 +146,7 @@ public class NetworkExtensionVPN: VPN {
 
         // install (new or existing) then callback
         let targetManager = managers.first {
-            $0.isTunnel(withIdentifier: tunnelBundleIdentifier)
+            isTunnel(withIdentifier: tunnelBundleIdentifier, $0)
         } ?? NETunnelProviderManager()
 
         _ = try await install(
@@ -158,7 +158,7 @@ public class NetworkExtensionVPN: VPN {
 
         // remove others afterwards (to avoid permission request)
         await retainManagers(managers) {
-            $0.isTunnel(withIdentifier: tunnelBundleIdentifier)
+            isTunnel(withIdentifier: tunnelBundleIdentifier, $0)
         }
 
         return targetManager
@@ -228,7 +228,7 @@ public class NetworkExtensionVPN: VPN {
     }
 
     private func notifyReinstall(_ manager: NETunnelProviderManager) {
-        guard let bundleId = manager.tunnelBundleIdentifier else {
+        guard let bundleId = tunnelBundleIdentifier(manager) else {
             return
         }
         log.debug("VPN did reinstall (\(bundleId)): isEnabled=\(manager.isEnabled)")
@@ -244,14 +244,14 @@ public class NetworkExtensionVPN: VPN {
             log.verbose("Ignoring VPN notification from bogus manager")
             return
         }
-        guard let bundleId = connection.manager.tunnelBundleIdentifier else {
+        guard let bundleId = tunnelBundleIdentifier(connection.manager) else {
             return
         }
         log.debug("VPN status did change (\(bundleId)): isEnabled=\(connection.manager.isEnabled), status=\(connection.status.rawValue)")
         var notification = Notification(name: VPNNotification.didChangeStatus)
         notification.vpnBundleIdentifier = bundleId
         notification.vpnIsEnabled = connection.manager.isEnabled
-        notification.vpnStatus = connection.status.wrappedStatus
+        notification.vpnStatus = nEVPNStatusToVPNStatus(connection.status)
         notification.connectionDate = connection.connectedDate
         notification.userInfo?["connection_date"] = connection.connectedDate
         NotificationCenter.default.post(notification)
@@ -267,37 +267,33 @@ public class NetworkExtensionVPN: VPN {
     }
 }
 
-private extension NEVPNManager {
-    var tunnelBundleIdentifier: String? {
-        guard let proto = protocolConfiguration as? NETunnelProviderProtocol else {
-            log.warning("No bundle identifier found because protocolConfiguration is not NETunnelProviderProtocol (\(type(of: protocolConfiguration))")
-            return nil
-        }
-        return proto.providerBundleIdentifier
+func  tunnelBundleIdentifier(_ protocolConfiguration: Any) -> String?  {
+    guard let proto = protocolConfiguration as? NETunnelProviderProtocol else {
+        log.warning("No bundle identifier found because protocolConfiguration is not NETunnelProviderProtocol (\(type(of: protocolConfiguration))")
+        return nil
     }
-
-    func isTunnel(withIdentifier bundleIdentifier: String) -> Bool {
-        return tunnelBundleIdentifier == bundleIdentifier
-    }
+    return proto.providerBundleIdentifier
 }
 
-private extension NEVPNStatus {
-    var wrappedStatus: VPNStatus {
-        switch self {
-        case .connected:
-            return .connected
+func isTunnel(withIdentifier bundleIdentifier: String, _ mg: Any) -> Bool {
+    return tunnelBundleIdentifier(mg) == bundleIdentifier
+}
 
-        case .connecting, .reasserting:
-            return .connecting
+func nEVPNStatusToVPNStatus(_ status :NEVPNStatus) -> VPNStatus{
+    switch (status) {
+    case .connected:
+        return .connected
 
-        case .disconnecting:
-            return .disconnecting
+    case .connecting, .reasserting:
+        return .connecting
 
-        case .disconnected, .invalid:
-            return .disconnected
+    case .disconnecting:
+        return .disconnecting
 
-        @unknown default:
-            return .disconnected
-        }
+    case .disconnected, .invalid:
+        return .disconnected
+
+    @unknown default:
+        return .disconnected
     }
 }
