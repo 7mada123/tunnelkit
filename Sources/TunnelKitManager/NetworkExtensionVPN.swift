@@ -253,6 +253,7 @@ public class NetworkExtensionVPN: VPN {
         notification.vpnIsEnabled = connection.manager.isEnabled
         notification.vpnStatus = connection.status.wrappedStatus
         notification.connectionDate = connection.connectedDate
+        notification.userInfo?["connection_date"] = connection.connectedDate
         NotificationCenter.default.post(notification)
     }
 
