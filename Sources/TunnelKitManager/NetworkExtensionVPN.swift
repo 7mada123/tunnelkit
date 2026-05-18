@@ -68,6 +68,7 @@ public class NetworkExtensionVPN: VPN {
         guard let manager = managers.first else {
             return
         }
+        
         if manager.connection.status != .disconnected {
             manager.connection.stopVPNTunnel()
             try await Task.sleep(nanoseconds: after.nanoseconds)
@@ -146,7 +147,7 @@ public class NetworkExtensionVPN: VPN {
 
         // install (new or existing) then callback
         let targetManager = managers.first {
-            isTunnel(withIdentifier: tunnelBundleIdentifier, $0)
+            isTunnel(withIdentifier: tunnelBundleIdentifier, $0.protocolConfiguration)
         } ?? NETunnelProviderManager()
 
         _ = try await install(
@@ -158,7 +159,7 @@ public class NetworkExtensionVPN: VPN {
 
         // remove others afterwards (to avoid permission request)
         await retainManagers(managers) {
-            isTunnel(withIdentifier: tunnelBundleIdentifier, $0)
+            isTunnel(withIdentifier: tunnelBundleIdentifier, $0.protocolConfiguration)
         }
 
         return targetManager
@@ -228,7 +229,7 @@ public class NetworkExtensionVPN: VPN {
     }
 
     private func notifyReinstall(_ manager: NETunnelProviderManager) {
-        let bundleId = tunnelBundleIdentifier(manager)
+        let bundleId = tunnelBundleIdentifier(manager.protocolConfiguration)
                 
         if(bundleId == nil) {
            return
@@ -248,7 +249,7 @@ public class NetworkExtensionVPN: VPN {
             return
         }
         
-        let bundleId = tunnelBundleIdentifier(connection.manager)
+        let bundleId = tunnelBundleIdentifier(connection.manager.protocolConfiguration)
         
         if(bundleId == nil) {
            return
@@ -276,13 +277,13 @@ public class NetworkExtensionVPN: VPN {
 
 func  tunnelBundleIdentifier(_ protocolConfiguration: Any) -> String?  {
     guard let proto = protocolConfiguration as? NETunnelProviderProtocol else {
-        log.warning("No bundle identifier found because protocolConfiguration is not NETunnelProviderProtocol (\(type(of: protocolConfiguration))")
+        print("No bundle identifier found because protocolConfiguration is not NETunnelProviderProtocol (\(type(of: protocolConfiguration))")
         return nil
     }
     return proto.providerBundleIdentifier
 }
 
-func isTunnel(withIdentifier bundleIdentifier: String, _ mg: Any) -> Bool {
+func isTunnel(withIdentifier bundleIdentifier: String, _ mg: NEVPNProtocol?) -> Bool {
     return tunnelBundleIdentifier(mg) == bundleIdentifier
 }
 
