@@ -107,7 +107,11 @@ public class NetworkExtensionVPN: VPN {
             return
         }
         for m in managers {
-            m.connection.stopVPNTunnel()
+            // Disabling + saving alone already stops the tunnel (nesessionmanager treats a
+            // disabled configuration as a stop signal). Also calling stopVPNTunnel() here sends
+            // a second, redundant stop that lands ~1.3s after the first one completes and forces
+            // nesessionmanager through an entire extra teardown/reinstall cycle — that's what
+            // was showing up as a multi-second "Disconnecting…" in System Settings.
             m.isOnDemandEnabled = false
             m.isEnabled = false
             try? await m.saveToPreferences()

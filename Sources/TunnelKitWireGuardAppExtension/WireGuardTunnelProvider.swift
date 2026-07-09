@@ -111,6 +111,7 @@ open class WireGuardTunnelProvider: NEPacketTunnelProvider {
 
             guard let self else {
                 completionHandler()
+                exitAfterStop()
                 return
             }
             self.tunnelQueue.async {
@@ -120,16 +121,13 @@ open class WireGuardTunnelProvider: NEPacketTunnelProvider {
                     wg_log(.error, message: "Failed to stop WireGuard adapter: \(error.localizedDescription)")
                 }
                 completionHandler()
+
+                // BEGIN: TunnelKit
+                exitAfterStop()
+                // END: TunnelKit
             }
 
             // END: TunnelKit
-
-            #if os(macOS)
-            // HACK: This is a filthy hack to work around Apple bug 32073323 (dup'd by us as 47526107).
-            // Remove it when they finally fix this upstream and the fix has been rolled out to
-            // sufficient quantities of users.
-            exit(0)
-            #endif
         }
     }
 
@@ -185,6 +183,30 @@ open class WireGuardTunnelProvider: NEPacketTunnelProvider {
         }
     }
 }
+
+#if os(macOS)
+/// HACK: This is a filthy hack to work around Apple bug 32073323 (dup'd by us as 47526107).
+/// Remove it when they finally fix this upstream and the fix has been rolled out to
+/// sufficient quantities of users.
+///
+/// Must run strictly after `completionHandler()` has been invoked (not just scheduled), and with
+/// a short delay after that: the completion handler's reply to nesessionmanager goes out over XPC
+/// asynchronously, so calling `exit(0)` synchronously right after invoking it can still kill the
+/// process before that reply is actually flushed. When that happens, nesessionmanager sees the
+/// connection drop instead of a graceful stop, reports it as a plugin failure, and makes System
+/// Settings sit in "Disconnecting…" for several seconds while it waits out its failure-recovery
+/// timeout before finalizing the disconnected state.
+///
+/// Free function (not a method) so it still runs even if the provider instance itself has already
+/// been deallocated by the time stopTunnel's completion fires.
+private func exitAfterStop() {
+    DispatchQueue.global().asyncAfter(deadline: .now() + 0.2) {
+        exit(0)
+    }
+}
+#else
+private func exitAfterStop() {}
+#endif
 
 private extension WireGuardTunnelProvider {
     enum StatsError: Error {
